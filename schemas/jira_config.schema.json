@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jira Configuration",
+  "type": "object",
+  "required": ["cloud_id", "instance_url", "projects"],
+  "properties": {
+    "cloud_id": { "type": "string" },
+    "instance_url": { "type": "string", "format": "uri" },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "purpose"],
+        "properties": {
+          "key": { "type": "string" },
+          "board_name": { "type": "string" },
+          "purpose": { "type": "string", "enum": ["primary_delivery", "design", "engineering", "support"] }
+        }
+      }
+    },
+    "default_project": { "type": "string" },
+    "custom_fields": {
+      "type": "object",
+      "properties": {
+        "story_points": { "type": "string" },
+        "sprint": { "type": "string" },
+        "epic_link": { "type": "string" }
+      }
+    },
+    "workflows": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "issue_types": {
+      "type": "object",
+      "properties": {
+        "story": { "type": "string" },
+        "bug": { "type": "string" },
+        "epic": { "type": "string" },
+        "task": { "type": "string" }
+      }
+    }
+  }
+}

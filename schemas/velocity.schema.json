@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sprint Velocity Metrics",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "sprints"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date" }, { "type": "null" }] },
+    "sprints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "planned_points", "delivered_points", "start_date", "end_date"],
+        "properties": {
+          "name": { "type": "string" },
+          "planned_points": { "type": "integer", "minimum": 0 },
+          "delivered_points": { "type": "integer", "minimum": 0 },
+          "carry_over": { "type": "integer", "minimum": 0 },
+          "carry_over_pct": { "type": "number", "minimum": 0, "maximum": 1 },
+          "defects": { "type": "integer", "minimum": 0 },
+          "defect_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+          "start_date": { "type": "string", "format": "date" },
+          "end_date": { "type": "string", "format": "date" },
+          "goal": { "type": "string" },
+          "goal_alignment_pct": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "rolling_avg_velocity": { "oneOf": [{ "type": "number" }, { "type": "null" }] },
+    "forecast_next_sprint": {
+      "type": "object",
+      "properties": {
+        "low": { "oneOf": [{ "type": "number" }, { "type": "null" }] },
+        "mid": { "oneOf": [{ "type": "number" }, { "type": "null" }] },
+        "high": { "oneOf": [{ "type": "number" }, { "type": "null" }] }
+      }
+    },
+    "trend": { "oneOf": [{ "type": "string", "enum": ["increasing", "stable", "declining"] }, { "type": "null" }] }
+  }
+}

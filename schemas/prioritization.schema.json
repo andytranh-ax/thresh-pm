@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feature Prioritization",
+  "description": "Evidence-based feature prioritization with framework scores",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "framework", "items"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "framework": { "type": "string", "enum": ["RICE", "ICE", "value_complexity", "weighted_scoring", "moscow"] },
+    "weights": {
+      "type": "object",
+      "description": "Custom weights for weighted_scoring framework",
+      "additionalProperties": { "type": "number" }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "score", "rank"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "source_theme_id": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+          "linked_jira_key": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+          "score": { "type": "number" },
+          "rank": { "type": "integer", "minimum": 1 },
+          "dimensions": {
+            "type": "object",
+            "description": "Framework-specific scores (e.g., reach, impact, confidence, effort for RICE)",
+            "additionalProperties": { "type": "number" }
+          },
+          "evidence_summary": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "recommendation": { "type": "string", "enum": ["build_now", "build_next", "build_later", "needs_validation", "deprioritize"] }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_items": { "type": "integer" },
+        "build_now_count": { "type": "integer" },
+        "needs_validation_count": { "type": "integer" },
+        "low_confidence_items": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "thresh-pm",
+  "description": "Thresh Product OS — Agentic PM operating system for consulting engagements. 15 skills, 17 commands, 7 agents covering the full PM lifecycle: customer data synthesis, interview pipeline, feedback triage, opportunity trees, feature prioritization, Figma-to-Jira story pipeline, dependency tracking, sprint forecasting, risk scoring, and roadmap reconciliation.",
+  "version": "2.3.0",
+  "author": {
+    "name": "Thresh Consulting",
+    "email": "andy@threshconsulting.com"
+  },
+  "homepage": "https://github.com/threshconsulting/thresh-pm",
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "jira",
+    "agile",
+    "consulting",
+    "story-writing",
+    "sprint-planning",
+    "customer-data",
+    "roadmap",
+    "discovery",
+    "prioritization",
+    "opportunity-solution-tree",
+    "feedback-triage"
+  ],
+  "category": "product-management"
+}

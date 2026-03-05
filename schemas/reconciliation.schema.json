@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Roadmap Reconciliation",
+  "description": "Comparison of roadmap intent against backlog reality",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "roadmap_items", "backlog_items", "coverage"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "roadmap_items": { "type": "integer", "minimum": 0 },
+    "backlog_items": { "type": "integer", "minimum": 0 },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "fully_covered": { "type": "integer", "minimum": 0 },
+        "partially_covered": { "type": "integer", "minimum": 0 },
+        "not_covered": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "backlog_alignment": {
+      "type": "object",
+      "properties": {
+        "aligned": { "type": "integer", "minimum": 0 },
+        "opportunistic": { "type": "integer", "minimum": 0 },
+        "orphaned": { "type": "integer", "minimum": 0 },
+        "tech_debt": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "roadmap_item": { "type": "string" },
+          "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "estimated_stories_needed": { "type": "integer" },
+          "recommendation": { "type": "string", "enum": ["decompose", "descope", "defer"] },
+          "customer_evidence_id": { "type": "string" }
+        }
+      }
+    },
+    "orphans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "jira_key": { "type": "string" },
+          "title": { "type": "string" },
+          "recommendation": { "type": "string", "enum": ["kill", "retheme", "promote"] }
+        }
+      }
+    },
+    "duplicates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "items": { "type": "array", "items": { "type": "string" } },
+          "recommendation": { "type": "string", "enum": ["merge", "split", "clarify"] }
+        }
+      }
+    },
+    "capacity_forecast": {
+      "type": "object",
+      "properties": {
+        "deliverable_this_quarter": { "type": "integer" },
+        "at_risk": { "type": "integer" },
+        "must_defer": { "type": "integer" }
+      }
+    },
+    "recommendations": { "type": "array", "items": { "type": "string" } }
+  }
+}

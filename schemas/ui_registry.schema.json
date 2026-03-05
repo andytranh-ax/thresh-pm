@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UI Registry",
+  "description": "Registry of UI components, screens, and design patterns for story decomposition",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "entries"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string", "enum": ["screen", "component", "pattern", "flow"] },
+          "figma_url": { "type": "string", "format": "uri" },
+          "description": { "type": "string" },
+          "parent": { "type": "string" },
+          "components": { "type": "array", "items": { "type": "string" } },
+          "data_sources": { "type": "array", "items": { "type": "string" } },
+          "interactions": { "type": "array", "items": { "type": "string" } },
+          "status": { "type": "string", "enum": ["design", "development", "review", "done"] }
+        }
+      }
+    }
+  }
+}

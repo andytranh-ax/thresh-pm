@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Work Graph",
+  "description": "Dependency graph for stories, enabling critical path analysis and impact scoring",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "nodes", "edges"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["title", "status"],
+        "properties": {
+          "title": { "type": "string" },
+          "status": { "type": "string", "enum": ["backlog", "ready", "in_progress", "in_review", "done", "blocked"] },
+          "points": { "type": "integer" },
+          "assignee": { "type": "string" },
+          "sprint": { "type": "string" },
+          "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
+          "components": { "type": "array", "items": { "type": "string" } },
+          "epic": { "type": "string" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "type"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "type": { "type": "string", "enum": ["blocks", "relates_to", "is_blocked_by"] }
+        }
+      }
+    },
+    "component_index": {
+      "type": "object",
+      "description": "Maps component IDs to story IDs that use them",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "critical_path": {
+      "type": "array",
+      "description": "Ordered list of story IDs on the longest dependency chain",
+      "items": { "type": "string" }
+    },
+    "unblocked_stories": {
+      "type": "array",
+      "description": "Story IDs with no incoming 'blocks' edges that can start immediately",
+      "items": { "type": "string" }
+    }
+  }
+}

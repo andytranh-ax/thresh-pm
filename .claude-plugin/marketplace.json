@@ -1,0 +1,34 @@
+{
+  "name": "thresh-pm",
+  "owner": {
+    "name": "Thresh Consulting",
+    "email": "andy@threshconsulting.com"
+  },
+  "metadata": {
+    "description": "Thresh Product OS — Agentic PM operating system for consulting engagements",
+    "version": "2.3.0"
+  },
+  "plugins": [
+    {
+      "name": "thresh-pm",
+      "source": "./",
+      "description": "Full Thresh PM operating system: 15 skills covering customer data synthesis, interview pipeline, feedback triage, opportunity trees, feature prioritization, story writing, Jira integration, dependency tracking, sprint forecasting, risk scoring, and roadmap reconciliation. 14 commands, 7 agents, 9 playbooks, 8 schemas.",
+      "version": "2.3.0",
+      "author": {
+        "name": "Thresh Consulting",
+        "email": "andy@threshconsulting.com"
+      },
+      "keywords": [
+        "product-management",
+        "jira",
+        "agile",
+        "consulting",
+        "customer-data",
+        "roadmap",
+        "discovery",
+        "prioritization"
+      ],
+      "category": "product-management"
+    }
+  ]
+}

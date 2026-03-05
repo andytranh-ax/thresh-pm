@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Opportunity Solution Tree",
+  "description": "Teresa Torres OST: outcomes → opportunities → solutions → experiments",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "outcome", "opportunities"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "outcome": {
+      "type": "object",
+      "required": ["statement"],
+      "properties": {
+        "statement": { "type": "string" },
+        "metric": { "type": "string" },
+        "target": { "type": "string" },
+        "timeframe": { "type": "string" }
+      }
+    },
+    "opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "source_theme_id": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+          "evidence_count": { "type": "integer", "minimum": 0 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "segments_affected": { "type": "array", "items": { "type": "string" } },
+          "solutions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "title"],
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "description": { "type": "string" },
+                "linked_jira_keys": { "type": "array", "items": { "type": "string" } },
+                "status": { "type": "string", "enum": ["proposed", "validated", "in_progress", "shipped", "discarded"] },
+                "effort_estimate": { "type": "string", "enum": ["XS", "S", "M", "L", "XL"] },
+                "experiments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "hypothesis"],
+                    "properties": {
+                      "id": { "type": "string" },
+                      "hypothesis": { "type": "string" },
+                      "method": { "type": "string" },
+                      "success_criteria": { "type": "string" },
+                      "result": { "oneOf": [{ "type": "string", "enum": ["pending", "validated", "invalidated"] }, { "type": "null" }] },
+                      "notes": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

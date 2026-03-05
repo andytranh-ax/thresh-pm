@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ingest State",
+  "description": "Watermark and metadata for incremental ingestion",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "last_ingest": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+    "mode": { "oneOf": [{ "type": "string", "enum": ["full", "incremental"] }, { "type": "null" }] },
+    "sources_used": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["jira", "figma", "drive", "data"] }
+    },
+    "jira_issues_scanned": { "type": "integer" },
+    "drive_docs_processed": { "type": "array", "items": { "type": "string" } },
+    "figma_files_processed": { "type": "array", "items": { "type": "string" } },
+    "data_files_profiled": { "type": "array", "items": { "type": "string" } },
+    "change_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "format": "date-time" },
+          "mode": { "type": "string" },
+          "summary": { "type": "string" }
+        }
+      }
+    }
+  }
+}

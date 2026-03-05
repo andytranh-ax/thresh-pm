@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Team Profiles",
+  "type": "object",
+  "required": ["schema_version", "last_updated", "developers"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "last_updated": { "oneOf": [{ "type": "string", "format": "date" }, { "type": "null" }] },
+    "developers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "jira_username", "role"],
+        "properties": {
+          "name": { "type": "string" },
+          "jira_username": { "type": "string" },
+          "role": { "type": "string" },
+          "velocity_30d": { "type": "number" },
+          "avg_cycle_time_days": { "type": "number" },
+          "defect_rate": { "type": "number" },
+          "carry_over_rate": { "type": "number" },
+          "pr_turnaround_days": { "type": "number" },
+          "expertise": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+                "stories_completed": { "type": "integer" },
+                "avg_cycle_time_days": { "type": "number" },
+                "defect_rate": { "type": "number" }
+              }
+            }
+          },
+          "best_fit": { "type": "array", "items": { "type": "string" } },
+          "stretch": { "type": "array", "items": { "type": "string" } },
+          "avoid": { "type": "array", "items": { "type": "string" } },
+          "bus_factor_areas": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "bus_factor_risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "area": { "type": "string" },
+          "people": { "type": "array", "items": { "type": "string" } },
+          "bus_factor": { "type": "integer", "minimum": 1 },
+          "risk_level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "mitigation": { "type": "string" }
+        }
+      }
+    }
+  }
+}
