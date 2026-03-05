@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "thresh-pm": {
+      "source": {
+        "source": "github",
+        "repo": "andytranh-ax/thresh-pm"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "thresh-pm@thresh-pm": true
+  }
+}
