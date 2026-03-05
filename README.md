@@ -2,17 +2,20 @@
 
 Agentic PM operating system for consulting engagements. Built for Claude Cowork and Claude Code.
 
+**[Read the full User Guide →](https://andytranh-ax.github.io/thresh-pm/)**
+
 ## Install
 
-```bash
-/plugin marketplace add threshconsulting/thresh-pm
-/plugin install thresh-pm@thresh-pm
-```
+### Cowork (Desktop App)
+1. Open **Customize** → **Browse plugins** → **Personal** tab
+2. Click **+** → **Add marketplace from GitHub**
+3. Enter: `andytranh-ax/thresh-pm`
+4. Click **Sync**, then install from the card
 
-Or install locally:
+### Claude Code (CLI)
 ```bash
-/plugin marketplace add ./thresh-plugin
-/plugin install thresh-pm@thresh-pm
+claude plugin marketplace add andytranh-ax/thresh-pm
+claude plugin install thresh-pm@thresh-pm
 ```
 
 ## What's Included
@@ -42,14 +45,14 @@ Or install locally:
 | `/thresh-risk` | Per-story risk scoring across 4 dimensions |
 | `/thresh-reconcile` | Roadmap vs backlog reconciliation — gaps, orphans, capacity |
 
-### 16 Commands
-`/thresh-setup` · `/ingest` · `/briefing` · `/decompose` · `/refine` · `/publish` · `/decisions` · `/team-health` · `/forecast` · `/risk` · `/synthesize` · `/reconcile` · `/interview` · `/prioritize` · `/opportunities` · `/feedback`
+### 17 Commands
+`/thresh-setup` · `/thresh-ingest` · `/thresh-briefing` · `/thresh-decompose` · `/thresh-refine` · `/thresh-publish` · `/thresh-publish-to-jira` · `/thresh-decisions` · `/thresh-team-health` · `/thresh-forecast` · `/thresh-risk` · `/thresh-synthesize` · `/thresh-reconcile` · `/thresh-interview` · `/thresh-prioritize` · `/thresh-opportunities` · `/thresh-feedback`
 
 ### 7 Agents
 Story writer · Quality gate reviewer · Change impact analyzer · Product drift detector · Decision candidate detector · Offboard intelligence synthesizer · Untrusted text scanner
 
 ### Supporting Infrastructure
-- 8 JSON schemas for data validation
+- 11 JSON schemas for data validation
 - 5 modular rule files (auto-loaded in Claude Code)
 - 12 standards documents
 - 9 playbooks

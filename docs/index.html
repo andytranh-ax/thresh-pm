@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thresh Product OS v2.3.0 — User Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --purple: #5B2D8E;
+    --purple-light: #F3EDF9;
+    --purple-med: #E0D0F0;
+    --purple-dark: #3D1D5E;
+    --gray: #666;
+    --gray-light: #F7F7F8;
+    --black: #1A1A1A;
+    --white: #FFFFFF;
+    --border: #E5E5E5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--black);
+    line-height: 1.7;
+    font-size: 15px;
+    background: var(--white);
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 48px;
+  }
+
+  /* Cover */
+  .cover {
+    text-align: center;
+    padding: 120px 48px 80px;
+    border-bottom: 3px solid var(--purple);
+    margin-bottom: 48px;
+  }
+  .cover h1 { font-size: 42px; font-weight: 700; color: var(--purple); margin-bottom: 8px; }
+  .cover .version { font-size: 20px; color: var(--gray); margin-bottom: 4px; }
+  .cover .subtitle { font-size: 26px; color: var(--black); font-weight: 500; margin-bottom: 48px; }
+  .cover .meta { font-size: 14px; color: var(--gray); border-top: 1px solid var(--border); padding-top: 24px; display: inline-block; }
+
+  /* Headings */
+  h1 { font-size: 28px; font-weight: 700; color: var(--purple); margin: 56px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--purple-light); }
+  h2 { font-size: 20px; font-weight: 600; color: var(--purple); margin: 36px 0 12px; }
+  h3 { font-size: 16px; font-weight: 600; color: var(--black); margin: 24px 0 8px; }
+
+  p { margin-bottom: 14px; }
+  p.note { color: var(--gray); font-style: italic; font-size: 14px; }
+
+  /* Lists */
+  ol, ul { margin: 12px 0 16px 24px; }
+  li { margin-bottom: 6px; }
+
+  /* Code */
+  code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    background: var(--gray-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--purple-dark);
+  }
+  pre {
+    background: var(--gray-light);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-left: 3px solid var(--purple);
+  }
+  pre code { background: none; padding: 0; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+  th {
+    background: var(--purple);
+    color: var(--white);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+  }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--gray-light); }
+  .cmd { font-weight: 600; color: var(--purple); white-space: nowrap; }
+
+  /* Image placeholders */
+  .img-placeholder {
+    background: var(--gray-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    margin: 16px 0 20px;
+    color: var(--purple);
+    font-style: italic;
+    font-size: 14px;
+  }
+  .img-placeholder img {
+    max-width: 100%;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+  .img-placeholder .caption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--gray);
+    font-style: normal;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: var(--purple-light);
+    border-left: 4px solid var(--purple);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .callout strong { color: var(--purple); }
+
+  /* TOC */
+  .toc { margin: 24px 0 48px; }
+  .toc a { color: var(--purple); text-decoration: none; display: block; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .toc a:hover { background: var(--purple-light); padding-left: 8px; }
+  .toc .sub { padding-left: 24px; font-size: 14px; color: var(--gray); }
+
+  /* Badge / pill */
+  .badge {
+    display: inline-block;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge.optional { background: var(--gray); }
+
+  /* Print */
+  @media print {
+    .page { padding: 0; }
+    .cover { padding-top: 200px; page-break-after: always; }
+    h1 { page-break-before: always; }
+    table, .img-placeholder { page-break-inside: avoid; }
+  }
+
+  /* HR */
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ COVER ═══════════ -->
+<div class="cover">
+  <h1 style="border:none; margin:0 0 8px; padding:0; font-size:42px;">Thresh Product OS</h1>
+  <div class="version">v2.3.0</div>
+  <div class="subtitle">User Guide</div>
+  <div class="meta">Thresh Consulting &middot; March 2026</div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════ TOC ═══════════ -->
+<h1 id="toc" style="margin-top:0;">Contents</h1>
+<div class="toc">
+  <a href="#what-is">1. What Is Thresh Product OS</a>
+  <a href="#installation">2. Installation</a>
+  <a href="#setup">3. Setting Up a New Engagement</a>
+  <a href="#how-it-works">4. How Thresh Works</a>
+  <a href="#commands">5. Command Reference</a>
+  <a href="#skills">6. Skills Reference</a>
+  <a href="#agents">7. Agents</a>
+  <a href="#workflows">8. Typical Workflows</a>
+  <a href="#multi-engagement">9. Working with Multiple Engagements</a>
+  <a href="#rules">10. Built-in Rules</a>
+  <a href="#schemas">11. Data Schemas</a>
+  <a href="#playbooks">12. Playbooks</a>
+  <a href="#troubleshooting">13. Troubleshooting</a>
+</div>
+
+<hr>
+
+<!-- ═══════════ 1. WHAT IS THRESH ═══════════ -->
+<h1 id="what-is">1. What Is Thresh Product OS</h1>
+
+<p>Thresh Product OS is a Claude plugin that turns Claude into an agentic product management operating system. Once installed, Claude gains <strong>15 specialized skills</strong>, <strong>17 commands</strong>, and <strong>7 autonomous agents</strong> that cover the full PM lifecycle&mdash;from customer research through story writing to Jira publishing.</p>
+
+<p>Thresh is not a separate application. It works inside Claude&mdash;either in <strong>Cowork</strong> (the desktop app) or <strong>Claude Code</strong> (the CLI). You talk to Claude normally, and Thresh skills activate automatically based on what you ask for. You can also invoke commands directly with slash syntax like <code>/thresh-briefing</code>.</p>
+
+<div class="callout">
+  <strong>What Thresh gives Claude:</strong> the ability to pull data from Jira, synthesize customer research, write stories with acceptance criteria, map dependencies, score risks, forecast sprints, build opportunity trees, and publish work back to Jira&mdash;all through conversation.
+</div>
+
+<div class="img-placeholder">
+  <img src="01-cowork-home.png" alt="Cowork home screen with Thresh PM suggested tasks">
+  <div class="caption">Cowork home &mdash; Thresh PM suggests relevant tasks based on your engagement</div>
+</div>
+
+<hr>
+
+<!-- ═══════════ 2. INSTALLATION ═══════════ -->
+<h1 id="installation">2. Installation</h1>
+
+<p>Thresh is distributed as a Claude plugin hosted on GitHub. There are two ways to install it.</p>
+
+<h2 id="install-cowork">Option A: Cowork UI (Recommended)</h2>
+
+<p>This is the recommended path for anyone using the Claude desktop app.</p>
+
+<ol>
+  <li><strong>Open Customize</strong>&mdash;click the gear icon in the bottom-left of Cowork</li>
+  <li>Go to <strong>Browse plugins</strong> &rarr; <strong>Personal</strong> tab</li>
+  <li>Click the <strong>+</strong> button in the top-right corner</li>
+  <li>Select <strong>Add marketplace from GitHub</strong></li>
+  <li>Enter: <code>andytranh-ax/thresh-pm</code></li>
+  <li>Click <strong>Sync</strong>, then install Thresh PM from the card that appears</li>
+</ol>
+
+<div class="img-placeholder">
+  <img src="02-customize-panel.png" alt="Customize panel with Browse plugins option">
+  <div class="caption">Open Customize from the sidebar &mdash; Browse plugins is at the bottom</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="04-add-marketplace-dropdown.png" alt="Add marketplace dropdown menu">
+  <div class="caption">Click the + button and select &ldquo;Add marketplace from GitHub&rdquo;</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="05-add-marketplace-dialog.png" alt="Add marketplace from GitHub dialog">
+  <div class="caption">Enter <code>andytranh-ax/thresh-pm</code> and click Sync</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="03-browse-plugins-card.png" alt="Thresh PM plugin card">
+  <div class="caption">Thresh PM appears in your Personal tab &mdash; click Manage to install</div>
+</div>
+
+<h2 id="install-cli">Option B: Claude Code CLI</h2>
+
+<p>If you use Claude Code (terminal), run these two commands:</p>
+
+<pre><code>claude plugin marketplace add andytranh-ax/thresh-pm
+claude plugin install thresh-pm@thresh-pm</code></pre>
+
+<p class="note">Plugins installed via CLI are also available in Cowork, and vice versa. You only need to install once.</p>
+
+<h2 id="install-verify">Verifying Installation</h2>
+
+<p>After installing, open Cowork&rsquo;s Customize panel. You should see Thresh PM listed under your Personal plugins with 17 commands, 15 skills, and 7 agents.</p>
+
+<div class="img-placeholder">
+  <img src="06-plugin-detail.png" alt="Thresh PM detail page showing all skills, commands, and agents">
+  <div class="caption">Thresh PM installed &mdash; 15 skills, 17 commands, 7 agents</div>
+</div>
+
+<p class="note">If skills don&rsquo;t appear immediately, fully quit and reopen the Claude desktop app. Plugins load at startup.</p>
+
+<hr>
+
+<!-- ═══════════ 3. SETUP ═══════════ -->
+<h1 id="setup">3. Setting Up a New Engagement</h1>
+
+<p>Every client engagement gets its own folder. The <code>/thresh-setup</code> command walks you through creating everything you need in one conversation.</p>
+
+<h2>Starting Setup</h2>
+
+<p>Open Cowork, select a folder for your engagement (or create a new one), and type <code>/thresh-setup</code>. Claude will guide you through six phases:</p>
+
+<div class="img-placeholder">
+  <img src="07-folder-dropdown.png" alt="Cowork folder dropdown showing recent folders">
+  <div class="caption">Select an existing folder or create a new one for your engagement</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="08-new-folder-dialog.png" alt="New Folder dialog creating Charter BBF Workspace">
+  <div class="caption">Creating a new engagement folder &mdash; &ldquo;Charter BBF Workspace&rdquo;</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="09-file-permission.png" alt="File permission dialog allowing Claude access">
+  <div class="caption">Grant Claude access to read and write files in your engagement folder</div>
+</div>
+
+<div class="img-placeholder">
+  <img src="10-setup-command.png" alt="Typing /setup command in Cowork">
+  <div class="caption">Type <code>/setup</code> &mdash; Claude autocompletes to <code>/thresh-pm:setup</code></div>
+</div>
+
+<div class="img-placeholder">
+  <img src="11-setup-running.png" alt="Thresh setup running Phase 1 connector checks">
+  <div class="caption">/thresh-setup running &mdash; Phase 1 checks your available connectors</div>
+</div>
+
+<h3>Phase 1: Connectors</h3>
+<p>Claude checks which integrations you have connected and helps you set up any that are missing.</p>
+
+<table>
+  <tr><th>Connector</th><th>Required?</th><th>What It Enables</th></tr>
+  <tr><td>Jira (Atlassian)</td><td><span class="badge">Required</span></td><td>Ingesting backlog, publishing stories, sprint tracking, velocity metrics</td></tr>
+  <tr><td>Google Drive</td><td><span class="badge optional">Recommended</span></td><td>Searching client docs, PRDs, meeting notes, roadmaps</td></tr>
+  <tr><td>Figma</td><td><span class="badge optional">Optional</span></td><td>Design decomposition, Figma-to-story pipeline</td></tr>
+  <tr><td>Slack</td><td><span class="badge optional">Optional</span></td><td>Pulling context from conversations, feedback channels</td></tr>
+</table>
+
+<p class="note">If a connector isn&rsquo;t available, Claude will tell you exactly where to enable it in Cowork&rsquo;s Customize panel.</p>
+
+<h3>Phase 2: Engagement Info</h3>
+<p>Claude asks a few questions conversationally: client name, engagement name, Jira project key(s). It then auto-detects your Jira configuration&mdash;cloud ID, instance URL, custom fields, workflow statuses, and issue types&mdash;so you don&rsquo;t have to configure anything manually.</p>
+
+<h3>Phase 3: Folder Structure</h3>
+<p>Claude creates the full engagement directory structure in your selected folder, including context files, data templates, rule files, and memory scaffolding. Everything is pre-populated with the correct engagement details.</p>
+
+<h3>Phase 4: Seed Context</h3>
+<p>This is where the engagement becomes useful from day one. Claude asks you to share whatever you already know&mdash;glossary terms, stakeholders, product context, technical landscape, existing designs, and customer research. You can paste text, upload files, or point to Google Drive docs. Claude processes each input into the right structured files.</p>
+<p class="note">Skip anything you don&rsquo;t have yet. You can always fill gaps later.</p>
+
+<h3>Phase 5: First Data Pull</h3>
+<p>Claude offers to pull your current Jira state immediately. For small projects it runs a full import; for large backlogs it offers a choice between full import and active-only (current sprint + last 90 days).</p>
+
+<h3>Phase 6: Confirmation</h3>
+<p>Claude summarizes everything that was created, which connectors are active, what context was seeded, and suggests next steps.</p>
+
+<hr>
+
+<!-- ═══════════ 4. HOW IT WORKS ═══════════ -->
+<h1 id="how-it-works">4. How Thresh Works</h1>
+
+<p>Thresh extends Claude with PM-specific capabilities. You don&rsquo;t need to memorize commands or follow a specific workflow. Just talk to Claude about what you need, and the right skills activate automatically.</p>
+
+<h2>Skills vs. Commands</h2>
+
+<p><strong>Skills</strong> are the underlying capabilities&mdash;Claude invokes them based on context. If you say &ldquo;can you break down this Figma screen into stories?&rdquo;, Claude activates the decompose skill without you needing to type a command.</p>
+
+<p><strong>Commands</strong> are shortcuts that explicitly invoke a skill. Typing <code>/thresh-decompose</code> does the same thing as asking Claude to decompose a design, but it&rsquo;s faster if you already know what you want.</p>
+
+<p><strong>Agents</strong> are autonomous multi-step workflows that chain multiple skills together. For example, the <code>story_writer_agent</code> writes stories using quality gates, templates, and dependency checks without you orchestrating each step.</p>
+
+<h2>The Engagement Folder</h2>
+
+<p>All engagement data lives in your selected folder. Key files:</p>
+
+<table>
+  <tr><th>File</th><th>Purpose</th></tr>
+  <tr><td><code>CLAUDE.md</code></td><td>Engagement configuration&mdash;Claude reads this at the start of every session</td></tr>
+  <tr><td><code>jira_config.json</code></td><td>Jira connection details, custom fields, workflow statuses</td></tr>
+  <tr><td><code>product/work_graph.json</code></td><td>All stories, epics, and dependencies in structured format</td></tr>
+  <tr><td><code>product/context/</code></td><td>Glossary, stakeholders, technical atlas, UI registry, discovery summary</td></tr>
+  <tr><td><code>product/customer_data/</code></td><td>Raw and processed customer research data</td></tr>
+  <tr><td><code>product/metrics/</code></td><td>Velocity, team profiles, estimation accuracy</td></tr>
+  <tr><td><code>.claude/rules/</code></td><td>Story writing, Jira conventions, quality gates, context routing rules</td></tr>
+</table>
+
+<p class="note">You don&rsquo;t need to edit these files directly. Thresh skills read from and write to them automatically as you work.</p>
+
+<hr>
+
+<!-- ═══════════ 5. COMMANDS ═══════════ -->
+<h1 id="commands">5. Command Reference</h1>
+
+<p>All 17 commands, organized by workflow phase. Each can be invoked by typing it in the chat, or Claude will suggest it when relevant.</p>
+
+<h2>Setup &amp; Data</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-setup</td><td>Full guided setup for a new engagement. Handles connectors, folder structure, context seeding, Jira auto-detection, and first data pull.</td></tr>
+  <tr><td class="cmd">/thresh-ingest</td><td>Pulls data from Jira, Figma, Google Drive into local JSON files. Smart about re-runs&mdash;only pulls new or changed data after the first sync.</td></tr>
+</table>
+
+<h2>Morning Workflow</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-briefing</td><td>Morning intelligence report: sprint health, overnight changes, defect radar, PR stalls, and recommended focus areas.</td></tr>
+  <tr><td class="cmd">/thresh-decisions</td><td>Scans Jira comments and status changes for informal decisions that should be formally captured in the decision log.</td></tr>
+  <tr><td class="cmd">/thresh-risk</td><td>Scores each story in the current sprint across 4 risk dimensions and flags high-risk items for attention.</td></tr>
+  <tr><td class="cmd">/thresh-forecast</td><td>Predicts sprint completion probability using historical velocity, current work graph state, and team capacity.</td></tr>
+</table>
+
+<h2>Customer Research</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-interview</td><td>Prepares structured interview scripts or processes interview transcripts into structured data for synthesis.</td></tr>
+  <tr><td class="cmd">/thresh-feedback</td><td>Bulk triage of feature requests and feedback from multiple channels. Categorizes, deduplicates, scores, and routes into synthesis.</td></tr>
+  <tr><td class="cmd">/thresh-synthesize</td><td>Ingests mass customer data (interviews, surveys, tickets, NPS) and synthesizes into pain points, themes, and feature candidates.</td></tr>
+</table>
+
+<h2>Strategy &amp; Prioritization</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-opportunities</td><td>Builds an Opportunity Solution Tree (Teresa Torres framework) from synthesis data. Maps outcomes to opportunities to solutions to experiments.</td></tr>
+  <tr><td class="cmd">/thresh-prioritize</td><td>Prioritizes features using customer evidence, dependency data, capacity constraints, and multiple frameworks (RICE, weighted scoring, etc.).</td></tr>
+  <tr><td class="cmd">/thresh-reconcile</td><td>Reconciles product roadmap against current Jira backlog. Identifies gaps, duplicates, orphaned work, and misalignment.</td></tr>
+</table>
+
+<h2>Story Pipeline</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-decompose</td><td>Transforms Figma designs into a fully linked epic/story structure. Analyzes screens, identifies components, wires dependencies, and can publish directly to Jira.</td></tr>
+  <tr><td class="cmd">/thresh-refine</td><td>Facilitates structured refinement sessions with prep, interactive story walkthrough, and post-refinement Jira sync.</td></tr>
+  <tr><td class="cmd">/thresh-publish</td><td>Publishes stories from the work graph to Jira with full content fidelity, dependency linking, and epic hierarchy.</td></tr>
+  <tr><td class="cmd">/thresh-publish-to-jira</td><td>Validates dependency mappings before syncing with Jira. Use when you want an extra validation pass before publishing.</td></tr>
+</table>
+
+<h2>Team &amp; Health</h2>
+<table>
+  <tr><th style="width:200px">Command</th><th>What It Does</th></tr>
+  <tr><td class="cmd">/thresh-team-health</td><td>Analyzes completed work by developer to build expertise profiles, spot capacity issues, and recommend story assignments.</td></tr>
+</table>
+
+<hr>
+
+<!-- ═══════════ 6. SKILLS ═══════════ -->
+<h1 id="skills">6. Skills Reference</h1>
+
+<p>Skills are what Claude uses behind the scenes. Each has deep domain knowledge and specific procedures. You rarely need to think about skills directly&mdash;Claude picks the right one based on your request.</p>
+
+<table>
+  <tr><th>Skill</th><th>Capability</th></tr>
+  <tr><td><strong>thresh-briefing</strong></td><td>Generates comprehensive sprint health reports from Jira data</td></tr>
+  <tr><td><strong>thresh-decisions</strong></td><td>Decision mining from Jira comment threads and status transitions</td></tr>
+  <tr><td><strong>thresh-decompose</strong></td><td>Figma-to-story pipeline with component analysis and dependency wiring</td></tr>
+  <tr><td><strong>thresh-feedback</strong></td><td>Multi-channel feedback triage with dedup and scoring</td></tr>
+  <tr><td><strong>thresh-forecast</strong></td><td>Sprint completion probability using velocity and work graph data</td></tr>
+  <tr><td><strong>thresh-ingest</strong></td><td>Multi-source data ingestion with delta detection</td></tr>
+  <tr><td><strong>thresh-interview</strong></td><td>Interview script generation and transcript processing</td></tr>
+  <tr><td><strong>thresh-opportunities</strong></td><td>Opportunity Solution Tree construction (Teresa Torres method)</td></tr>
+  <tr><td><strong>thresh-prioritize</strong></td><td>Evidence-based feature prioritization with multiple frameworks</td></tr>
+  <tr><td><strong>thresh-publish</strong></td><td>Jira issue creation with dependency linking and epic hierarchy</td></tr>
+  <tr><td><strong>thresh-reconcile</strong></td><td>Roadmap-to-backlog reconciliation and gap analysis</td></tr>
+  <tr><td><strong>thresh-refine</strong></td><td>Structured refinement session facilitation</td></tr>
+  <tr><td><strong>thresh-risk</strong></td><td>Multi-dimensional risk scoring for sprint stories</td></tr>
+  <tr><td><strong>thresh-synthesize</strong></td><td>Customer data synthesis into structured pain points and themes</td></tr>
+  <tr><td><strong>thresh-team-health</strong></td><td>Developer expertise profiling and assignment recommendations</td></tr>
+</table>
+
+<hr>
+
+<!-- ═══════════ 7. AGENTS ═══════════ -->
+<h1 id="agents">7. Agents</h1>
+
+<p>Agents are autonomous workflows that chain multiple skills and quality checks. They run multi-step tasks without you needing to orchestrate each step.</p>
+
+<table>
+  <tr><th>Agent</th><th>What It Does</th></tr>
+  <tr><td><strong>story_writer_agent</strong></td><td>Writes stories with acceptance criteria, applies quality gates, checks dependencies, and validates against existing patterns.</td></tr>
+  <tr><td><strong>reviewer_quality_gate_agent</strong></td><td>Reviews stories against quality standards. Catches missing acceptance criteria, vague descriptions, and dependency gaps.</td></tr>
+  <tr><td><strong>change_impact_analyzer</strong></td><td>Analyzes a proposed change and maps its impact across the work graph&mdash;which stories are affected, which teams need to know.</td></tr>
+  <tr><td><strong>decision_candidate_detector</strong></td><td>Monitors Jira activity and surfaces decisions that were made informally but should be formally logged.</td></tr>
+  <tr><td><strong>product_drift_detector</strong></td><td>Compares current sprint work against the stated roadmap and flags drift&mdash;are we building what we said we would?</td></tr>
+  <tr><td><strong>offboard_intelligence_synthesizer</strong></td><td>When wrapping up an engagement, synthesizes all accumulated context into handoff documentation.</td></tr>
+  <tr><td><strong>untrusted_text_scanner</strong></td><td>Security scanner that checks user-provided text for prompt injection attempts before processing.</td></tr>
+</table>
+
+<hr>
+
+<!-- ═══════════ 8. WORKFLOWS ═══════════ -->
+<h1 id="workflows">8. Typical Workflows</h1>
+
+<p>You don&rsquo;t need to follow rigid steps. These are patterns that work well, but Claude adapts to however you prefer to work.</p>
+
+<h2>Starting Your Day</h2>
+<p>Open your engagement folder in Cowork and ask for a briefing. Claude pulls the latest Jira state and gives you sprint health, overnight changes, defect status, and recommendations for where to focus.</p>
+<p class="note">Try: &ldquo;What&rsquo;s the status of the sprint?&rdquo; or just /thresh-briefing</p>
+
+<h2>Processing Customer Research</h2>
+<p>Drop interview transcripts, survey exports, support ticket CSVs, or feedback dumps into your engagement&rsquo;s <code>customer_data/raw/</code> folder. Then ask Claude to process them. It will triage, categorize, and synthesize the data into structured pain points and opportunities.</p>
+<p class="note">Try: &ldquo;I just added 5 interview transcripts. Can you synthesize them?&rdquo;</p>
+
+<h2>Breaking Down Designs</h2>
+<p>Share a Figma link or upload screenshots. Claude analyzes the designs, identifies UI components and user flows, generates stories with acceptance criteria, maps dependencies, and can publish the entire epic/story structure to Jira in one pass.</p>
+<p class="note">Try: &ldquo;Break down this Figma screen into stories&rdquo; and paste a Figma URL</p>
+
+<h2>Preparing for Refinement</h2>
+<p>Before a refinement session, ask Claude to prep the stories. It reviews acceptance criteria, flags gaps, checks dependencies, and generates a structured walkthrough you can use in the meeting. After refinement, it syncs any changes back to Jira.</p>
+<p class="note">Try: &ldquo;Prep the stories in the current sprint for refinement&rdquo;</p>
+
+<h2>Publishing to Jira</h2>
+<p>When stories are ready, Claude publishes them to Jira with full content&mdash;acceptance criteria, story points, dependency links, epic assignments, and any labels or components. It validates everything before pushing.</p>
+<p class="note">Try: &ldquo;Publish the stories we just wrote to Jira&rdquo;</p>
+
+<hr>
+
+<!-- ═══════════ 9. MULTI-ENGAGEMENT ═══════════ -->
+<h1 id="multi-engagement">9. Working with Multiple Engagements</h1>
+
+<p>The plugin is installed once globally. Each engagement gets its own folder with its own <code>CLAUDE.md</code>, Jira config, and context files. To switch between engagements, just open a different folder in Cowork.</p>
+
+<div class="callout">
+  <strong>Example:</strong> If you&rsquo;re running two Charter engagements (T-Mobile and Buyflow), you&rsquo;d create two folders and run <code>/thresh-setup</code> in each. Each gets its own Jira project key, its own context, and its own work graph. Claude keeps them completely separate.
+</div>
+
+<div class="img-placeholder">
+  <img src="07-folder-dropdown.png" alt="Folder dropdown showing engagement folders">
+  <div class="caption">Switch between engagements by selecting a different folder</div>
+</div>
+
+<hr>
+
+<!-- ═══════════ 10. RULES ═══════════ -->
+<h1 id="rules">10. Built-in Rules</h1>
+
+<p>Thresh includes 5 rule files that automatically guide Claude&rsquo;s behavior during your engagement. These are copied into your <code>.claude/rules/</code> folder during setup.</p>
+
+<table>
+  <tr><th>Rule File</th><th>What It Enforces</th></tr>
+  <tr><td><strong>story-writing.md</strong></td><td>Story format standards: user story syntax, acceptance criteria requirements, point estimation conventions</td></tr>
+  <tr><td><strong>jira-conventions.md</strong></td><td>Jira field usage: which fields to populate, labeling patterns, component assignment, sprint naming</td></tr>
+  <tr><td><strong>quality-gates.md</strong></td><td>Pre-publish checks: stories must have AC, dependencies must be mapped, Figma links required for UI stories</td></tr>
+  <tr><td><strong>context-routing.md</strong></td><td>Which context files to consult for which tasks&mdash;ensures Claude uses the right data sources</td></tr>
+  <tr><td><strong>client-overrides.md</strong></td><td>Placeholder for client-specific customizations: naming conventions, workflow adjustments, terminology</td></tr>
+</table>
+
+<p class="note">You can edit these files to customize Claude&rsquo;s behavior for specific clients or teams.</p>
+
+<hr>
+
+<!-- ═══════════ 11. SCHEMAS ═══════════ -->
+<h1 id="schemas">11. Data Schemas</h1>
+
+<p>Thresh uses 11 JSON schemas to maintain data consistency across all skills. You don&rsquo;t need to know these in detail&mdash;they work behind the scenes&mdash;but they ensure that data produced by one skill is readable by every other skill.</p>
+
+<table>
+  <tr><th>Schema</th><th>Validates</th></tr>
+  <tr><td>work_graph.schema.json</td><td>Stories, epics, dependencies, and their relationships</td></tr>
+  <tr><td>synthesis.schema.json</td><td>Customer pain points, themes, and evidence chains</td></tr>
+  <tr><td>velocity.schema.json</td><td>Sprint velocity data and trend calculations</td></tr>
+  <tr><td>team_profiles.schema.json</td><td>Developer expertise maps and workload data</td></tr>
+  <tr><td>jira_config.schema.json</td><td>Jira connection and field configuration</td></tr>
+  <tr><td>opportunity_tree.schema.json</td><td>Opportunity Solution Tree structure</td></tr>
+  <tr><td>prioritization.schema.json</td><td>Feature priority rankings and scoring criteria</td></tr>
+  <tr><td>feedback_triage.schema.json</td><td>Feedback categorization and routing</td></tr>
+  <tr><td>reconciliation.schema.json</td><td>Roadmap-to-backlog comparison results</td></tr>
+  <tr><td>ui_registry.schema.json</td><td>UI component inventory and Figma references</td></tr>
+  <tr><td>ingest_state.schema.json</td><td>Data sync state and delta tracking</td></tr>
+</table>
+
+<hr>
+
+<!-- ═══════════ 12. PLAYBOOKS ═══════════ -->
+<h1 id="playbooks">12. Playbooks</h1>
+
+<p>Playbooks are pre-built multi-step procedures that Claude follows for common PM workflows. They combine multiple skills in a tested sequence.</p>
+
+<table>
+  <tr><th>Playbook</th><th>Workflow</th></tr>
+  <tr><td><strong>Daily Figma-to-Story</strong></td><td>Figma link &rarr; component analysis &rarr; story writing &rarr; dependency mapping &rarr; Jira publish</td></tr>
+  <tr><td><strong>Story Reasoning</strong></td><td>Context loading &rarr; story drafting &rarr; quality gate check &rarr; revision &rarr; finalization</td></tr>
+  <tr><td><strong>Jira Publish Stories</strong></td><td>Work graph validation &rarr; dependency check &rarr; Jira field mapping &rarr; batch publish</td></tr>
+  <tr><td><strong>Intelligence Loop Quickstart</strong></td><td>Ingest &rarr; briefing &rarr; decision scan &rarr; risk score &rarr; action items</td></tr>
+  <tr><td><strong>UX-to-Story Translation</strong></td><td>Design analysis &rarr; interaction mapping &rarr; edge cases &rarr; AC generation</td></tr>
+  <tr><td><strong>Milestone Decomposition</strong></td><td>Milestone definition &rarr; phase breakdown &rarr; epic creation &rarr; story writing &rarr; dependency wiring</td></tr>
+  <tr><td><strong>Risk Regression</strong></td><td>Historical risk data &rarr; pattern detection &rarr; recurring risk identification &rarr; mitigation suggestions</td></tr>
+  <tr><td><strong>After-Sync Decision Candidates</strong></td><td>Post-ingest scan &rarr; comment analysis &rarr; decision extraction &rarr; log update</td></tr>
+  <tr><td><strong>Offboarding Synthesis</strong></td><td>Context files &rarr; decision log &rarr; work graph &rarr; lessons learned &rarr; handoff document</td></tr>
+</table>
+
+<hr>
+
+<!-- ═══════════ 13. TROUBLESHOOTING ═══════════ -->
+<h1 id="troubleshooting">13. Troubleshooting</h1>
+
+<h2>Skills don&rsquo;t appear after install</h2>
+<p>Fully quit and reopen the Claude desktop app. Cowork loads plugins at startup, so a restart is needed after first install.</p>
+
+<h2>Cowork UI says &ldquo;Failed to add marketplace&rdquo;</h2>
+<p>This is a known networking issue in the Cowork VM that intermittently can&rsquo;t resolve GitHub. Use the CLI install method instead (Option B above). The plugin works identically regardless of how it was installed.</p>
+
+<h2>Jira auto-detection doesn&rsquo;t find custom fields</h2>
+<p>Some Jira instances use non-standard custom field names. If auto-detection misses fields, Claude will create <code>jira_config.json</code> with null values for those fields and tell you which ones need manual configuration. You can find custom field IDs in Jira under Settings &rarr; Issues &rarr; Custom Fields.</p>
+
+<h2>Commands don&rsquo;t seem to work</h2>
+<p>Make sure you&rsquo;re in the engagement folder (not a different folder). Thresh commands rely on the <code>CLAUDE.md</code> and context files in your engagement folder. If you haven&rsquo;t run <code>/thresh-setup</code> yet, most commands won&rsquo;t have the data they need.</p>
+
+<h2>&ldquo;I already have data in Jira. Do I need to start from scratch?&rdquo;</h2>
+<p>No. Run <code>/thresh-setup</code> to create the engagement structure, then <code>/thresh-ingest</code> to pull your existing Jira data. Thresh works with whatever is already in your Jira project&mdash;it doesn&rsquo;t require you to create stories through Thresh first.</p>
+
+<hr>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div style="text-align:center; padding: 48px 0 24px; color: var(--gray); font-size: 14px;">
+  <div style="font-size: 20px; font-weight: 600; color: var(--purple); margin-bottom: 4px;">Thresh Product OS</div>
+  <div>v2.3.0 &middot; Built by Thresh Consulting</div>
+  <div style="margin-top: 8px;"><a href="https://github.com/andytranh-ax/thresh-pm" style="color: var(--purple);">github.com/andytranh-ax/thresh-pm</a></div>
+</div>
+
+</div><!-- .page -->
+
+</body>
+</html>
