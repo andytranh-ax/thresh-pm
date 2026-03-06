@@ -129,9 +129,9 @@ deliverables/                      ← Reports and outputs
 
 ## Why Thresh Instead of Generic PM Skills?
 
-Generic PM skills (like phuryn's) give you frameworks as standalone exercises — you run a prioritization, get markdown output, and it's done. Thresh is different:
+Generic PM skills give you frameworks as standalone exercises — you run a prioritization, get markdown output, and it's done. Thresh is different:
 
-1. **Structured data pipeline** — Everything writes to JSON with schemas. Your synthesis feeds your prioritization feeds your roadmap reconciliation feeds your story decomposition.
+1. **Structured data pipeline** — Everything writes with schemas. Your synthesis feeds your prioritization feeds your roadmap reconciliation feeds your story decomposition. Everything is traced and graphed from pixel to story to code.
 2. **Jira-native** — Stories aren't markdown files. They're Jira issues with real sprints, real assignments, real velocity data.
 3. **Evidence chain** — Every story traces back through: solution → opportunity → theme → customer quote. No "we built this because someone said so."
 4. **Incremental** — Synthesis, feedback, and reconciliation all support incremental updates. Process new data without restarting from scratch.
